@@ -1,6 +1,8 @@
-mod limited_vecs;
+mod collections;
+mod models;
 
-use limited_vecs::{LimitedQueue, LimitedStack};
+use collections::LimitedQueue;
+use models::Truck;
 
 fn main() {
     let queue: LimitedQueue<u8> = LimitedQueue::new(2);
