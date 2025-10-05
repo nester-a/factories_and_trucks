@@ -1,7 +1,7 @@
 use collections::{LimitedQueue, LimitedStack};
 
 pub struct Product {
-    name: String,
+    pub name: String,
 }
 
 pub struct Factory {
@@ -9,6 +9,9 @@ pub struct Factory {
 }
 
 impl Factory {
+    pub fn new(name: String) -> Self {
+        Self { name }
+    }
     pub fn create(&self) -> Product {
         Product {
             name: format!("product from {}", self.name),
@@ -42,6 +45,13 @@ impl Truck {
     pub fn loaded(&self) -> usize {
         self.cargo.len()
     }
+
+    pub fn last_cargo(&self) -> &Product {
+        match self.cargo.peek() {
+            Some(prd) => prd,
+            None => panic!() // Нужно понять, как паниковать
+        }
+    }
 }
 
 pub struct Warehouse {
@@ -57,7 +67,6 @@ impl Warehouse {
         }
     }
 
-
     pub fn load(&mut self, product: Product) -> Result<(), &'static str> {
         self.cargo.enqueue(product)
     }
@@ -68,6 +77,13 @@ impl Warehouse {
 
     pub fn loaded(&self) -> usize {
         self.cargo.len()
+    }
+
+    pub fn last_cargo(&self) -> &Product {
+        match self.cargo.peek() {
+            Some(prd) => prd,
+            None => panic!() // Нужно понять, как паниковать
+        }
     }
 }
 
