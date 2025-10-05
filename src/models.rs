@@ -1,6 +1,6 @@
-mod limited_vecs;
+mod collections;
 
-use limited_vecs::{LimitedQueue, LimitedStack};
+use collections::{LimitedQueue, LimitedStack};
 
 pub struct Product {
     name: String,
@@ -17,18 +17,17 @@ impl Factory {
     }
 }
 
-
 pub struct Truck {
     name: String,
-    max_size: usize,
+    capacity: usize,
     cargo: LimitedStack<Product>
 }
 impl Truck{
-    pub fn new(name: String, max_size: usize) -> Self {
+    pub fn new(name: String, capacity: usize) -> Self {
         Self{
             name,
-            max_size,
-            cargo: LimitedStack<Product>(max_size)
+            capacity,
+            cargo: LimitedStack<Product>(capacity)
         }
     }
     pub fn load(&self, product: Product) {
@@ -36,6 +35,20 @@ impl Truck{
     }
     pub fn uload(&self) -> Product{
         self.cargo.pop()
+    }
+}
+
+pub struct Warehouse {
+    capacity: usize,
+    cargo: LimitedQueue<Product>
+}
+
+impl Warehouse{
+    pub fn new(capacity: usize) -> Self {
+        Self {
+            capacity,
+            cargo: LimitedQueue<Product>(capacity)
+        }
     }
 }
 
